@@ -72,3 +72,4 @@ Now you can use your world by typing `loadWorld("yourWorldName")` into the `void
 - Farbe
 - Action-History
 - Check Setup/etc for Windows & Linux
+- Add all worlds
