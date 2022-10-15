@@ -17,6 +17,6 @@ idk, i dont have linux
 
 ## Run Karel
 
-To run your programm, first you need to open a terminal either in your IDE or a normal terminal. Then yoou have to navigate to the place where your Karel-files are by typing `cd You/Path/To/The/Programm/Folder` and pressing enter. You can list the files in the folder by typing `ls`.
+To run your programm, first you need to open a terminal either in your IDE or a normal terminal. Then yoou have to navigate to the place where your Karel-files are by typing `cd You/Path/To/The/Programm/Folder` and pressing enter. You can list the files in the folder by typing `ls` (unix) or `dir` (windows).
 
 Now type `clang yourProgram.c`, or `gcc yourProgram.c` depending on your OS and a new file called `a.out` (on MacOS) will be created in your folder. To run this file simply type `./a.out` in your terminal. Now you should see Karel in action.
