@@ -5,6 +5,7 @@ The goal of this projeect was to create a simpler, easier to install and cross-p
 Inspired by [Maximilian Schecklmann](https://github.com/Narrenschlag/KingKarel)
 
 <img src="https://media.giphy.com/media/T5y8Ke9iC97tOV7ZnF/giphy.gif" height="500" width="450"/>
+
 ## Setup
 ### All Platforms
 Download this repo by clicking on the green Code-Button in the right upper corner and clicking on "Download as ZIP". Unzip it, and you should be presented with `karel.h`, `HelloWorld.c` and this README.
