@@ -14,7 +14,7 @@ Confim that Clang is installed by typing `clang --version` in your terminal to l
 To install the gcc, go to [MinGW](https://sourceforge.net/projects/mingw/) and install the MinGW installer. Follow the instructions listed [here](https://dev.to/gamegods3/how-to-install-gcc-in-windows-10-the-easier-way-422j).
 Confirm your installation by typing `gcc --version` in your terminal.
   ### Linux
-idk, i dont have linux
+idk, i dont have linux; install gcc or another compiler however you want
 
 ## Run Karel
 
