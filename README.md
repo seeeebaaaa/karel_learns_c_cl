@@ -67,3 +67,7 @@ Note: `howYouWanToCallItFromYourFile` is the name your world will have, and that
 To pre-declare your world, add it to `// WORLDS` (somewhere around line 80) like the other worlds already have: `void worldYourWorldName();`
 #### Using it
 Now you can use your world by typing `loadWorld("yourWorldName")` into the `void setup() {}` function.
+
+## Todo:
+- Farbe
+- Action-History
