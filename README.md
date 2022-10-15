@@ -75,3 +75,4 @@ Now you can use your world by typing `loadWorld("yourWorldName")` into the `void
 - Action-History
 - Check Setup/etc for Windows & Linux
 - Add all worlds
+- Better Character Handling
