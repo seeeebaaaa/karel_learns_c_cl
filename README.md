@@ -71,3 +71,4 @@ Now you can use your world by typing `loadWorld("yourWorldName")` into the `void
 ## Todo:
 - Farbe
 - Action-History
+- Check Setup/etc for Windows & Linux
