@@ -2,7 +2,7 @@
 
 void setup()
 {
-    setSpeed(500); // Speed between actions in milliseconds
+    setSpeed(500); // Optional: Speed between actions/frames in milliseconds
     loadWorld("LivingRoom");
 }
 
@@ -27,23 +27,14 @@ void run()
         move();
     }
     turnRight();
+    while (noBeepersPresent())
+    {
+        move();
+    }
+    pickBeeper();
 
     while (frontIsClear())
     {
-        while (noBeepersPresent())
-        {
-            move();
-        }
-        pickBeeper();
+        move();
     }
-    // karelPosition[0] = 3;
-    // karelPosition[1] = 8;
-    // move();
-    // move();
 }
-
-/** TODO!!
- *
- * LOAD WOLRDS FROM FILE
- *
- */

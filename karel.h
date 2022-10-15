@@ -35,6 +35,7 @@ void msleep(int milliseconds)
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 
 // extern int meineVariable;
 
@@ -77,6 +78,13 @@ extern bool notFacingSouth();
 extern bool facingWest();
 extern bool notFacingWest();
 
+// WORLDS
+void worldLivingRoom();
+void worldFlagDistance1();
+void worldFlagDistance0();
+void worldFlagDistance2();
+
+// INTERN STUFF
 const int maxWidth = 100;
 const int maxHeight = 100;
 const int maxWalls = (maxWidth - 1) * (maxHeight - 1);
@@ -90,14 +98,14 @@ void setSpeed(int speed)
 
 int worldDimension[2] = {0, 0}; // entspricht {Y, X}
 /**
- * 4 x..
- * 3 x x..
- * 2 x x x..
- * 1 x x x x..
- * 0 x x x x x..
- J>^0 1 2 3 4
- * I
- */
+                                        * 4 x..
+                                        * 3 x x..
+                                        * 2 x x x..
+                                        * 1 x x x x..
+                                        * 0 x x x x x..
+                                        J>^0 1 2 3 4
+                                        * I
+                                        */
 
 int karelPosition[2] = {0, 0}; // entspricht {Y, X}
 int karelRotation = 0;         // 0=north, 1=east, 2=south, 3=west
@@ -116,19 +124,20 @@ const char clearSymbol = '.';
 int isWallInWallDex(int walls[maxWalls][4], int wall[4])
 {
     // printf("a: %d", 0 || (wall[0] == worldDimension[1] + 1 || wall[1] == worldDimension[1] + 1 || wall[2] == worldDimension[1] + 1 || wall[3] == worldDimension[1] + 1) || (wall[0] == worldDimension[0] + 1 || wall[1] == worldDimension[0] + 1 || wall[2] == worldDimension[0] + 1 || wall[3] == worldDimension[0] + 1) || (wall[0] == -1 || wall[1] == -1 || wall[2] == -1 || wall[3] == -1));
-    for (int i = 0; i < maxWalls; i++)
+    for (int i = 0; i < maxBeeps; i++)
     {
         // printf("we are moving through walls \n");
-        // printf("wo: %d", worldDimension[1] + 1);
+        //  printf("wo: %d", worldDimension[1] + 1);
 
         if (walls[i][0] == wall[0] && walls[i][1] == wall[1] && walls[i][2] == wall[2] && walls[i][3] == wall[3])
         {
-            // printf("FOUDN WALLL at %d", i);
+            // printf("FOUDN WALLL at %d with atm[%d,%d,%d,%d]", i, wall[0], wall[1], wall[2], wall[3]);
             return 1;
         }
         // check if wall is a boundary
-        else if (((wall[0] == worldDimension[1] + 1 || wall[1] == worldDimension[1] + 1 || wall[2] == worldDimension[1] + 1 || wall[3] == worldDimension[1] + 1) || (wall[0] == worldDimension[0] + 1 || wall[1] == worldDimension[0] + 1 || wall[2] == worldDimension[0] + 1 || wall[3] == worldDimension[0] + 1) || (wall[0] == -1 || wall[1] == -1 || wall[2] == -1 || wall[3] == -1)))
+        else if (((wall[0] == worldDimension[0] + 1 || wall[1] == worldDimension[1] + 1 || wall[2] == worldDimension[0] + 1 || wall[3] == worldDimension[1] + 1) || (wall[0] == -1 || wall[1] == -1 || wall[2] == -1 || wall[3] == -1)))
         {
+            // printf("FOUDN BOUND at %d with atm[%d,%d,%d,%d] and states 1: %d, 2: %d, 3: %d and wd [%d,%d]", i, wall[0], wall[1], wall[2], wall[3], (wall[0] == worldDimension[1] + 1 || wall[1] == worldDimension[1] + 1 || wall[2] == worldDimension[1] + 1 || wall[3] == worldDimension[1] + 1), (wall[0] == worldDimension[0] + 1 || wall[1] == worldDimension[0] + 1 || wall[2] == worldDimension[0] + 1 || wall[3] == worldDimension[0] + 1), (wall[0] == -1 || wall[1] == -1 || wall[2] == -1 || wall[3] == -1), worldDimension[0], worldDimension[1]);
             return 1;
         }
     }
@@ -249,7 +258,23 @@ void draw()
             // place beepers
             if ((karelPosition[0] != i || karelPosition[1] != j) && isBeeperInBeepDex(beeper, atmBeep) == 1)
             {
-                printf("%c", beeperSymbol);
+                int beepPos;
+                for (int a = 0; a < maxBeeps; a++)
+                {
+                    if (beeper[a][0] == atmBeep[0] && beeper[a][1] == atmBeep[1])
+                    {
+                        beepPos = a;
+                        break;
+                    }
+                }
+                if (beeper[beepPos][2] == 1)
+                {
+                    printf("%c", beeperSymbol);
+                }
+                else
+                {
+                    printf("%d", beeper[beepPos][2]);
+                }
                 placeWallVertical(i, j);
                 continue;
             }
@@ -312,63 +337,39 @@ void initializeBeeps()
         beeper[i][2] = 0;
     }
 }
+void initializeWalls()
+{
+    for (int i = 0; i < maxWalls; i++)
+    {
+        walls[i][0] = -2;
+        walls[i][1] = -2;
+        walls[i][2] = -2;
+        walls[i][3] = -2;
+    }
+}
 // setup shit
 void loadWorld(char worldName[100])
 {
     // pre for all worlds
     initializeBeeps();
-    switch (worldName)
+    initializeWalls();
+    // world selection:
+    if (!strcmp(worldName, "LivingRoom"))
     {
-    case "LivingRoom":
         worldLivingRoom();
-        break;
-
-    default:
-        break;
     }
-    // FIRST NUMBER IS KAREL WORLD INDEX (starting at 1) and thus we need to subtract 1 to get the program index (starting at 0)
-    // sample world: livingroom
-    // hasUlimitedBeeper = false;
-    // numberOfBeeper = 0;
-    // setSpeed(500);
-
-    // worldDimension[0] = 10 - 1; // set to value in file
-    // worldDimension[1] = 10 - 1; // set to value in file
-    // karelPosition[0] = 1 - 1;   // set to value in file
-    // karelPosition[1] = 1 - 1;   // set to value in file
-    // karelRotation = 1;
-    // walls[0][0] = 1 - 1;
-    // walls[0][1] = 6 - 1;
-    // walls[0][2] = 1 - 1;
-    // walls[0][3] = 7 - 1;
-    // walls[1][0] = 2 - 1;
-    // walls[1][1] = 6 - 1;
-    // walls[1][2] = 2 - 1;
-    // walls[1][3] = 7 - 1;
-    // walls[2][0] = 3 - 1;
-    // walls[2][1] = 6 - 1;
-    // walls[2][2] = 3 - 1;
-    // walls[2][3] = 7 - 1;
-    // walls[3][0] = 3 - 1;
-    // walls[3][1] = 7 - 1;
-    // walls[3][2] = 4 - 1;
-    // walls[3][3] = 7 - 1;
-    // walls[4][0] = 3 - 1;
-    // walls[4][1] = 8 - 1;
-    // walls[4][2] = 4 - 1;
-    // walls[4][3] = 8 - 1;
-    // walls[5][0] = 3 - 1;
-    // walls[5][1] = 9 - 1;
-    // walls[5][2] = 4 - 1;
-    // walls[5][3] = 9 - 1;
-    // walls[6][0] = 3 - 1;
-    // walls[6][1] = 10 - 1;
-    // walls[6][2] = 4 - 1;
-    // walls[6][3] = 10 - 1;
-
-    // beeper[0][0] = 4 - 1;
-    // beeper[0][1] = 8 - 1;
-
+    else if (!strcmp(worldName, "flagDistance1"))
+    {
+        worldFlagDistance1();
+    }
+    else if (!strcmp(worldName, "flagDistance0"))
+    {
+        worldFlagDistance0();
+    }
+    else if (!strcmp(worldName, "flagDistance2"))
+    {
+        worldFlagDistance2();
+    }
     printf("loedade teh wolrd %s \n", worldName);
 }
 
@@ -483,7 +484,7 @@ void pickBeeper()
             {
                 beeper[i][2]--;
             }
-            else if (beeper[i][2] == 0)
+            else if (beeper[i][2] == 1)
             {
                 beeper[i][0] = -1;
                 beeper[i][1] = -1;
@@ -704,4 +705,213 @@ int main()
     printf("finsihed");
 }
 
+/**
+ *
+ * WOLRDS
+ *
+ */
+
+// dont forget to put void worldPreset(); at the top of file
+//  void worldPreset()
+//  {
+//      hasUlimitedBeeper = true;
+//      numberOfBeeper = 0;
+//      setSpeed(500);       //speed in ms
+//     worldDimension[0] = Y - 1; // set to value in file
+//     worldDimension[1] = X - 1; // set to value in file
+//     karelPosition[0] = Y - 1;   // set to value in file
+//     karelPosition[1] = X - 1;   // set to value in file
+//     karelRotation = 1;
+// //walls
+//     walls[0][0] = Y - 1;  // set to value in file
+//     walls[0][1] = X - 1;     //...
+//     walls[0][2] = Y - 1;
+//     walls[0][3] = X - 1;
+//     walls[1][0]...
+// //beeper
+//     beeper[0][0] = Y - 1;        // set to value in file
+//     beeper[0][1] = X - 1;        //..
+//     beeper[0][2] = N; // number of beeper; PLS DONT SET IT TO ZERO
+//     beeper[1][0]..
+// }
+
+void worldLivingRoom()
+{
+    hasUlimitedBeeper = true;
+    numberOfBeeper = 0;
+    setSpeed(500);
+
+    worldDimension[0] = 10 - 1; // set to value in file
+    worldDimension[1] = 10 - 1; // set to value in file
+    karelPosition[0] = 1 - 1;   // set to value in file
+    karelPosition[1] = 1 - 1;   // set to value in file
+    karelRotation = 1;
+    walls[0][0] = 1 - 1;
+    walls[0][1] = 6 - 1;
+    walls[0][2] = 1 - 1;
+    walls[0][3] = 7 - 1;
+    walls[1][0] = 2 - 1;
+    walls[1][1] = 6 - 1;
+    walls[1][2] = 2 - 1;
+    walls[1][3] = 7 - 1;
+    walls[2][0] = 3 - 1;
+    walls[2][1] = 6 - 1;
+    walls[2][2] = 3 - 1;
+    walls[2][3] = 7 - 1;
+    walls[3][0] = 3 - 1;
+    walls[3][1] = 7 - 1;
+    walls[3][2] = 4 - 1;
+    walls[3][3] = 7 - 1;
+    walls[4][0] = 3 - 1;
+    walls[4][1] = 8 - 1;
+    walls[4][2] = 4 - 1;
+    walls[4][3] = 8 - 1;
+    walls[5][0] = 3 - 1;
+    walls[5][1] = 9 - 1;
+    walls[5][2] = 4 - 1;
+    walls[5][3] = 9 - 1;
+    walls[6][0] = 3 - 1;
+    walls[6][1] = 10 - 1;
+    walls[6][2] = 4 - 1;
+    walls[6][3] = 10 - 1;
+
+    beeper[0][0] = 4 - 1;
+    beeper[0][1] = 8 - 1;
+    beeper[0][2] = 1; // number of beeper; PLS DONT SET IT TO ZERO
+}
+
+void worldFlagDistance1()
+{
+    hasUlimitedBeeper = true;
+    numberOfBeeper = 0;
+    setSpeed(100); // speed in ms
+
+    worldDimension[0] = 4 - 1;  // set to value in file
+    worldDimension[1] = 12 - 1; // set to value in file
+    karelPosition[0] = 1 - 1;   // set to value in file
+    karelPosition[1] = 1 - 1;   // set to value in file
+    karelRotation = 1;
+
+    // walls
+    walls[0][0] = 1 - 1;
+    walls[0][1] = 10 - 1;
+    walls[0][2] = 1 - 1;
+    walls[0][3] = 11 - 1;
+
+    walls[1][0] = 2 - 1;
+    walls[1][1] = 10 - 1;
+    walls[1][2] = 2 - 1;
+    walls[1][3] = 11 - 1;
+
+    walls[2][0] = 3 - 1;
+    walls[2][1] = 10 - 1;
+    walls[2][2] = 3 - 1;
+    walls[2][3] = 11 - 1;
+
+    walls[3][0] = 3 - 1;
+    walls[3][1] = 11 - 1;
+    walls[3][2] = 3 - 1;
+    walls[3][3] = 12 - 1;
+
+    walls[4][0] = 2 - 1;
+    walls[4][1] = 11 - 1;
+    walls[4][2] = 3 - 1;
+    walls[4][3] = 11 - 1;
+
+    walls[5][0] = 3 - 1;
+    walls[5][1] = 11 - 1;
+    walls[5][2] = 4 - 1;
+    walls[5][3] = 11 - 1;
+    // beeper
+}
+
+void worldFlagDistance0()
+{
+    hasUlimitedBeeper = true;
+    numberOfBeeper = 0;
+    setSpeed(100); // speed in ms
+
+    worldDimension[0] = 4 - 1;  // set to value in file
+    worldDimension[1] = 10 - 1; // set to value in file
+    karelPosition[0] = 1 - 1;   // set to value in file
+    karelPosition[1] = 1 - 1;   // set to value in file
+    karelRotation = 1;
+
+    // walls
+    walls[0][0] = 1 - 1;
+    walls[0][1] = 1 - 1;
+    walls[0][2] = 1 - 1;
+    walls[0][3] = 2 - 1;
+
+    walls[1][0] = 2 - 1;
+    walls[1][1] = 1 - 1;
+    walls[1][2] = 2 - 1;
+    walls[1][3] = 2 - 1;
+
+    walls[2][0] = 3 - 1;
+    walls[2][1] = 1 - 1;
+    walls[2][2] = 3 - 1;
+    walls[2][3] = 2 - 1;
+
+    walls[3][0] = 3 - 1;
+    walls[3][1] = 2 - 1;
+    walls[3][2] = 3 - 1;
+    walls[3][3] = 3 - 1;
+
+    walls[4][0] = 2 - 1;
+    walls[4][1] = 2 - 1;
+    walls[4][2] = 3 - 1;
+    walls[4][3] = 2 - 1;
+
+    walls[5][0] = 3 - 1;
+    walls[5][1] = 2 - 1;
+    walls[5][2] = 4 - 1;
+    walls[5][3] = 2 - 1;
+    // beeper
+}
+
+void worldFlagDistance2()
+{
+    hasUlimitedBeeper = true;
+    numberOfBeeper = 0;
+    setSpeed(100); // speed in ms
+
+    worldDimension[0] = 4 - 1;  // set to value in file
+    worldDimension[1] = 28 - 1; // set to value in file
+    karelPosition[0] = 1 - 1;   // set to value in file
+    karelPosition[1] = 1 - 1;   // set to value in file
+    karelRotation = 1;
+
+    // walls
+    walls[0][0] = 1 - 1;
+    walls[0][1] = 25 - 1;
+    walls[0][2] = 1 - 1;
+    walls[0][3] = 26 - 1;
+
+    walls[1][0] = 2 - 1;
+    walls[1][1] = 25 - 1;
+    walls[1][2] = 2 - 1;
+    walls[1][3] = 26 - 1;
+
+    walls[2][0] = 3 - 1;
+    walls[2][1] = 25 - 1;
+    walls[2][2] = 3 - 1;
+    walls[2][3] = 26 - 1;
+
+    walls[3][0] = 3 - 1;
+    walls[3][1] = 26 - 1;
+    walls[3][2] = 3 - 1;
+    walls[3][3] = 27 - 1;
+
+    walls[4][0] = 2 - 1;
+    walls[4][1] = 26 - 1;
+    walls[4][2] = 3 - 1;
+    walls[4][3] = 26 - 1;
+
+    walls[5][0] = 3 - 1;
+    walls[5][1] = 26 - 1;
+    walls[5][2] = 4 - 1;
+    walls[5][3] = 26 - 1;
+    // beeper
+}
 #endif
