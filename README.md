@@ -24,6 +24,8 @@ To run your programm, first you need to open a terminal either in your IDE or a 
 
 Now type `clang yourProgram.c`, or `gcc yourProgram.c` depending on your OS and a new file called `a.out` (on MacOS) will be created in your folder. To run this file simply type `./a.out` in your terminal (on MacOS at least). Now you should see Karel in action.
 
+All available actions are listed in [this handout](https://fbim.oth-regensburg.de/~hem38149/files/karel/Karel_the_Robot_Reader.pdf).
+
 ## Customization
 > NOTE: these featurs are exclusively for this Karel-version, and are may (very likely!!) not supported in other versions.
 If you want to be fancy and have more fun with karel, there are a few settings you can play with, including creating own worlds.
