@@ -30,6 +30,7 @@ All available actions are listed in [this handout](https://fbim.oth-regensburg.d
 Karel is symbolized by `>, V, <, ^` depending on the direction he is looking. He can also look like `}, U, {, A` if he's currently standing on a beeper.  
 The Walls are symbolized by `|, -` depending if they are vertical or horizontal.  
 On the left and bottom part of the outer wall are markers (`>, ^`) that indicate the rows and colums Karel can stand in for a better visualization.
+Empty fields are marked with a dot `.`. 
 
 ## Customization
 > NOTE: these featurs are exclusively for this Karel-version, and are may (very likely!!) not supported in other versions.
