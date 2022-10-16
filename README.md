@@ -8,7 +8,7 @@ Inspired by [Maximilian Schecklmann](https://github.com/Narrenschlag/KingKarel)
 
 ## Setup
 ### All Platforms
-Download this repo by clicking on the green Code-Button in the right upper corner and clicking on "Download as ZIP". Unzip it, and you should be presented with `karel.h`, `HelloWorld.c` and this README. (The file `worldGen.js` can be ignored. It is not needed to run Karel)
+Download this repo by clicking on the green Code-Button in the right upper corner and clicking on "Download as ZIP". Unzip it, and you should be presented with `karel.h`, `HelloWorld.c` and this README. (The file `worldGen.js` can be ignored/deleted. It is not needed to run Karel)
 ### MacOS
 The best way of compiling it on MacOS is by using Clang. To use Clang, install the XCode-Commandline-Tools by typing `xcode-select --install` in your terminal. Click `Okay` in the pop up and wait till the installation has finished. 
 Confim that Clang is installed by typing `clang --version` in your terminal to list the installed version.
