@@ -8,7 +8,7 @@ Inspired by [Maximilian Schecklmann](https://github.com/Narrenschlag/KingKarel)
 
 ## Setup
 ### All Platforms
-Download this repo by clicking on the green Code-Button in the right upper corner and clicking on "Download as ZIP". Unzip it, and you should be presented with `karel.h`, `HelloWorld.c` and this README.
+Download this repo by clicking on the green Code-Button in the right upper corner and clicking on "Download as ZIP". Unzip it, and you should be presented with `karel.h`, `HelloWorld.c` and this README. (The file `worldGen.js` can be ignored. It is not needed to run Karel)
 ### MacOS
 The best way of compiling it on MacOS is by using Clang. To use Clang, install the XCode-Commandline-Tools by typing `xcode-select --install` in your terminal. Click `Okay` in the pop up and wait till the installation has finished. 
 Confim that Clang is installed by typing `clang --version` in your terminal to list the installed version.
@@ -53,10 +53,11 @@ The position where karel starts. [0]>Y, [1]>X; Same sizing-rule as `worldDimensi
 Karels starting rotation. 0>North,1>East,2>south,3>west. int
 ##### Walls
 The walls are a bit tricky. All walls are stored in the array `walls[][4]`. Each wall is another array with 4 Elements: `{field1Y,field1X,field2Y,field2X}`. The wall is created between `field1` and `field2`. 
+> IMPORTANT: field1 must be either on the right sid eof field2 or under field2
 ##### Beeper
 The beepers are stored in the array `beeper[][3]`. Each beeper is another array with 3 elements: `{fieldY,fieldX,numberOfBeepers}`. `numberOfBeepers` is th eamount of beepers stored on this field. 
 #### Adding it to the Selection
-To ad your world to the world selection go into the `void loadWorld()` function and under `//world selection:` youll find plenty of if-elseif statements. To add your world paste
+To add your world to the world selection go into the `void loadWorld()` function and under `//world selection:` youll find plenty of if-elseif statements. To add your world paste
 ```c
 else if (!strcmp(worldName, "howYouWanToCallItFromYourFile"))
     {
@@ -72,7 +73,9 @@ Now you can use your world by typing `loadWorld("yourWorldName")` into the `void
 
 ## Todo:
 - Farbe
-- Action-History
+- Action-History (to cmd & file?)
 - Check Setup/etc for Windows & Linux
-- Add all worlds
+- ~~Add all worlds~~ Done (16.10.22)
 - Better Character Handling
+- Manual Control Mode
+- Add better explosion
