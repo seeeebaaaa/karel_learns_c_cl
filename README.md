@@ -20,14 +20,20 @@ idk, i dont have linux; install gcc or another compiler however you want
 
 ## Run Karel
 
-To run your programm, first you need to open a terminal either in your IDE or a normal terminal. Then yoou have to navigate to the place where your Karel-files are by typing `cd You/Path/To/The/Programm/Folder` and pressing enter. You can list the files in the folder by typing `ls` (unix) or `dir` (windows).
+To run your programm, first you need to open a terminal either in your IDE or a normal terminal. Then you have to navigate to the place where your Karel-files are by typing `cd Your/Path/To/The/Programm/Folder` and pressing enter. You can list the files in the folder by typing `ls` (unix) or `dir` (windows).
 
 Now type `clang yourProgram.c`, or `gcc yourProgram.c` depending on your OS and a new file called `a.out` (on MacOS) will be created in your folder. To run this file simply type `./a.out` in your terminal (on MacOS at least). Now you should see Karel in action.
 
 All available actions are listed in [this handout](https://fbim.oth-regensburg.de/~hem38149/files/karel/Karel_the_Robot_Reader.pdf) or this [cheat sheet](https://fbim.oth-regensburg.de/~hem38149/files/karel/Karel_Reference_Card.pdf).
 
+## What is what?
+Karel is symbolized by `>, V, <, ^` depending on the direction he is looking. He can also look like `}, U, {, A` if he's currently standing on a beeper.  
+The Walls are symbolized by `|, -` depending if they are vertical or horizontal.  
+On the left and bottom part of the outer wall are markers (`>, ^`) that indicate the rows and colums Karel can stand in for a better visualization.
+
 ## Customization
 > NOTE: these featurs are exclusively for this Karel-version, and are may (very likely!!) not supported in other versions.
+> 
 If you want to be fancy and have more fun with karel, there are a few settings you can play with, including creating own worlds.
 ### Speed
 As shown in the `HelloWorld.c` example (that uses the LivingRoom world), you can use  `setSpeed(int speed)` to set the speed between frames in milliseconds. This value is set per default to 500ms. Also you can change the speed while the code is executed by using the `setSpeed()` function in components that are called in your `run()`.
@@ -56,6 +62,10 @@ The walls are a bit tricky. All walls are stored in the array `walls[][4]`. Each
 > IMPORTANT: field1 must be either on the right sid eof field2 or under field2
 ##### Beeper
 The beepers are stored in the array `beeper[][3]`. Each beeper is another array with 3 elements: `{fieldY,fieldX,numberOfBeepers}`. `numberOfBeepers` is th eamount of beepers stored on this field. 
+#### Alternative way of 'writing' your world.
+You can use the given `WorldName.w` files too! By using the `worldGen.js` file with e.g. Node.js you can convert the `.w` files into finished c-code to avoid typing this step all by hand (quite handy if the worlds already exit and are quite complex). 
+For this to work, you need to open `worldGen.js` and copy in your own file path to the `.w` file under the comment in the `readFileSync()` function. The first paramter is your path (full or relative) to the `.w` file, so change that one.
+Now run the `worldGen.js` file and copy the given code into your `void worldYourWorldName(){}` function.
 #### Adding it to the Selection
 To add your world to the world selection go into the `void loadWorld()` function and under `//world selection:` youll find plenty of if-elseif statements. To add your world paste
 ```c
