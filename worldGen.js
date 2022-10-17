@@ -1,7 +1,7 @@
 //-jhint options
 /*jshint unused:true,leanswitch:true,asi:true,esversion:8,expr:true,-W008*/
 
-const { readFileSync, promises: fsPromises } = require('fs');
+const { readFileSync } = require('fs');
 
 let world = {
     dimension: 0,       // X Y
