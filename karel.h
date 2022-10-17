@@ -38,16 +38,32 @@ void msleep(int milliseconds)
 #include <string.h>  //strings
 //#include <ncurses.h> //color etc output
 
-// extern int meineVariable;
+// COLORS
+// basic colors
+#define ac_fgRED "\x1b[31;40m"
+#define ac_fgGREEN "\x1b[32;40m"
+#define ac_fgYELLOW "\x1b[33;40m"
+#define ac_fgBLUE "\x1b[34;40m"
+#define ac_fgMAGENTA "\x1b[35;40m"
+#define ac_fgCYAN "\x1b[36;40m"
+#define ac_RESET "\x1b[0;0m"
+// colors for elements
+#define ac_outerWall "\x1b[34;40m"
+#define ac_innerWall "\x1b[96;40m"
+#define ac_markerr "\x1b[96;40m"
+#define ac_karel "\x1b[35;40m"
+#define ac_karelWithBeep "\x1b[95;40m"
+#define ac_beeper "\x1b[33;40m"
+#define ac_space "\x1b[30;40m"
+#define ac_dot "\x1b[37;40m"
+#define ac_speed "\x1b[91;40m"
 
-// extern int meineFunktion1(int);
-// extern int meineFunktion2(char);
-
-// extern all def
+//  extern all def
 extern void run();
 extern void setup();
 extern void loadWorld();
 extern void setSpeed(); // time in seconds between frames
+extern void manualMode();
 
 // extern shit def
 // move
@@ -116,6 +132,7 @@ void worldSteepSteepleChase();
 void worldworldArea0();
 void worldworldArea1();
 void worldworldArea3();
+// YOUR OWN CUSTOM WORLDS:
 
 // INTERN STUFF
 const int maxWidth = 100;
@@ -131,14 +148,15 @@ void setSpeed(int speed)
 
 int worldDimension[2] = {0, 0}; // entspricht {Y, X}
 /**
-                                        * 4 x..
-                                        * 3 x x..
-                                        * 2 x x x..
-                                        * 1 x x x x..
-                                        * 0 x x x x x..
-                                        J>^0 1 2 3 4
-                                        * I
-                                        */
+* .
+* 4 x..
+* 3 x x..
+* 2 x x x..
+* 1 x x x x..
+* 0 x x x x x..
+J>^ 0 1 2 3 4 ..
+* I
+*/
 
 int karelPosition[2] = {0, 0}; // entspricht {Y, X}
 int karelRotation = 0;         // 0=north, 1=east, 2=south, 3=west
@@ -148,7 +166,7 @@ int numberOfBeeper = 0;
 bool hasUlimitedBeeper = false;
 
 // ✨ Beauty ✨
-
+// für farben die sachen unter '//COLORS' oben ändern
 const char karelFacesWithoutBeeper[4] = {'^', '>', 'V', '<'}; // corresponding to karelPosition + karelBeeper
 const char karelFacesWithBeeper[4] = {'A', '}', 'U', '{'};
 const char beeperSymbol = '*';
@@ -227,16 +245,16 @@ void placeWallVertical(int i, int j)
 
         if (isWallInWallDex(walls, atmWall) == 1)
         {
-            printf("|");
+            printf(ac_innerWall "|" ac_RESET);
         }
         else
         {
-            printf(" ");
+            printf(ac_space " " ac_RESET);
         }
     }
     else
     {
-        printf("|");
+        printf(ac_outerWall "|" ac_RESET);
     }
 }
 void placeWallHorizontal(int i, int j)
@@ -247,42 +265,43 @@ void placeWallHorizontal(int i, int j)
     {
         if (j != worldDimension[1])
         {
-            printf("- ");
+            printf(ac_innerWall "-%s%s %s", ac_RESET, ac_space, ac_RESET);
         }
         else
         {
-            printf("-");
+            printf(ac_innerWall "-" ac_RESET);
         }
     }
     else
     {
         if (j != worldDimension[1])
         {
-            printf("  ");
+            printf(ac_space "  " ac_RESET);
         }
         else
         {
-            printf(" ");
+            printf(ac_space " " ac_RESET);
         }
     }
 }
 
 bool DEBUG_Draw = true;
 
+// show the field in the console
 void draw()
 {
     printf("\e[2;1H\e[2J");
-    printf("   ");
+    printf(ac_space "   " ac_RESET);
     for (int i = 0; i <= worldDimension[1]; i++)
     {
-        printf("--");
+        printf(ac_outerWall "--" ac_RESET);
     }
     printf("\n");
     for (int i = worldDimension[0]; i >= 0; i--)
     {
         // printf("%d |", i + 1);
 
-        printf("> |");
+        printf("%s>%s %s|%s", ac_markerr, ac_space, ac_outerWall, ac_RESET);
 
         for (int j = 0; j <= worldDimension[1]; j++)
         {
@@ -302,11 +321,11 @@ void draw()
                 }
                 if (beeper[beepPos][2] == 1)
                 {
-                    printf("%c", beeperSymbol);
+                    printf(ac_beeper "%c" ac_RESET, beeperSymbol);
                 }
                 else
                 {
-                    printf("%d", beeper[beepPos][2]);
+                    printf(ac_beeper "%d" ac_RESET, beeper[beepPos][2]);
                 }
                 placeWallVertical(i, j);
                 continue;
@@ -314,50 +333,53 @@ void draw()
             // place karel
             if (karelPosition[0] == i && karelPosition[1] == j && isBeeperInBeepDex(beeper, atmBeep) == 0)
             {
-                printf("%c", karelFacesWithoutBeeper[karelRotation]);
+                printf(ac_karel "%c" ac_RESET, karelFacesWithoutBeeper[karelRotation]);
                 placeWallVertical(i, j);
                 continue;
             }
             if (karelPosition[0] == i && karelPosition[1] == j && isBeeperInBeepDex(beeper, atmBeep) == 1)
             {
-                printf("%c", karelFacesWithBeeper[karelRotation]);
+                printf(ac_karelWithBeep "%c" ac_RESET, karelFacesWithBeeper[karelRotation]);
                 placeWallVertical(i, j);
                 continue;
             }
-            printf("%c", clearSymbol);
+            printf(ac_dot "%c" ac_RESET, clearSymbol);
             placeWallVertical(i, j);
         }
         printf("\n");
         if (i != 0)
         {
-            printf("  |");
+            printf(ac_space "  %s|" ac_RESET, ac_outerWall);
             for (int j = 0; j <= worldDimension[1]; j++)
             {
                 placeWallHorizontal(i - 1, j);
             }
-            printf("|\n");
+            printf(ac_outerWall "|\n" ac_RESET);
         }
     }
-    printf("   ");
+    printf(ac_space "   " ac_RESET);
     for (int i = 0; i <= worldDimension[1]; i++)
     {
-        printf("--");
+        printf(ac_outerWall "--" ac_RESET);
     }
-    printf("\n   ");
+    printf(ac_space "\n   " ac_RESET);
     for (int i = 0; i <= worldDimension[1]; i++)
     {
         // printf("%d ", i + 1);
-        printf("^ ");
+        printf("%s^%s " ac_RESET, ac_markerr, ac_space);
     }
     printf("\n");
+    // printf beeper amount
     if (hasUlimitedBeeper)
     {
-        printf("Beepers in Bag: infinite\n");
+        printf(ac_beeper "Beepers in Bag: %sinfinite\n" ac_RESET, ac_fgGREEN);
     }
     else
     {
-        printf("Beepers in Bag: %d\n", numberOfBeeper);
+        printf(ac_beeper "Beepers in Bag: %s%d\n" ac_RESET, ac_fgGREEN, numberOfBeeper);
     }
+    // print speed
+    printf(ac_speed "Current Speed: %s%d %sms\n" ac_RESET, ac_fgYELLOW, timeBetweenFrames, ac_speed);
     msleep(timeBetweenFrames);
 }
 
@@ -535,6 +557,10 @@ void loadWorld(char worldName[100])
     printf("loedade teh wolrd %s \n if you see this, then a error occured.. maybe", worldName);
 }
 
+// manual mode
+void manualMode()
+{
+}
 // action shit
 
 // move
@@ -864,7 +890,7 @@ int main()
     setup();
     draw();
     run();
-    printf("finsihed");
+    printf(ac_fgGREEN "finsihed" ac_RESET);
 }
 
 /**
@@ -5386,4 +5412,7 @@ void worldworldArea3()
     karelPosition[1] = 1 - 1;
     karelRotation = 1;
 }
+
+// YOUR OWN CUSTOM WORLDS:
+
 #endif

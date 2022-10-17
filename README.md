@@ -54,13 +54,14 @@ How much Beepers does karel have at the start? int
 Default speed of the world. int
 ##### worldDimension[0] & worldDimension[1]
 The size of your world. [0]>Y, [1]>x; Remember that the number you put here has to be `(ActuallSizeOfTheWorld)-1`. int
+> Note: The maximum dimensions your world can have are 100x100 (can be changed in `karel.h`)
 ##### karelPosition[0] & karelPosition[1]
 The position where karel starts. [0]>Y, [1]>X; Same sizing-rule as `worldDimension[]`. int
 ##### karelRotation
 Karels starting rotation. 0>North,1>East,2>south,3>west. int
 ##### Walls
 The walls are a bit tricky. All walls are stored in the array `walls[][4]`. Each wall is another array with 4 Elements: `{field1Y,field1X,field2Y,field2X}`. The wall is created between `field1` and `field2`. 
-> IMPORTANT: field1 must be either on the right sid eof field2 or under field2
+> **IMPORTANT**: field1 must be either on the right side of field2 or under field2
 ##### Beeper
 The beepers are stored in the array `beeper[][3]`. Each beeper is another array with 3 elements: `{fieldY,fieldX,numberOfBeepers}`. `numberOfBeepers` is th eamount of beepers stored on this field. 
 #### Alternative way of 'writing' your world.
@@ -83,10 +84,11 @@ To pre-declare your world, add it to `// WORLDS` (somewhere around line 80) like
 Now you can use your world by typing `loadWorld("yourWorldName")` into the `void setup() {}` function.
 
 ## Todo:
-- Farbe
+- ~~Farbe~~Done (17.10.22))
 - Action-History (to cmd & file?)
 - Check Setup/etc for Windows & Linux
 - ~~Add all worlds~~ Done (16.10.22)
-- Better Character Handling
+- Better Character Handling (for adding unicode characters)
 - Manual Control Mode
 - Add better explosion
+- Add maxHeight&maxWidth check
