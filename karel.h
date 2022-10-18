@@ -63,7 +63,6 @@ extern void run();
 extern void setup();
 extern void loadWorld();
 extern void setSpeed(); // time in seconds between frames
-extern void manualMode();
 
 // extern shit def
 // move
@@ -135,6 +134,7 @@ void worldworldArea3();
 void worldMining3();
 void worldMining3Ex();
 // YOUR OWN CUSTOM WORLDS:
+void world3x1();
 
 // INTERN STUFF
 const int maxWidth = 100;
@@ -563,13 +563,48 @@ void loadWorld(char worldName[100])
     {
         worldMining3Ex();
     }
+    else if (!strcmp(worldName, "3x1"))
+    {
+        world3x1();
+    }
 
     printf("loedade teh wolrd %s \n if you see this, then a error occured.. maybe", worldName);
 }
 
-// manual mode
+// manual mode - get called each draw frame
 void manualMode()
 {
+    printf("Entered Manual Control Mode. To exit type 'exit();'.\n");
+    while (true)
+    {
+        char input[30];
+        scanf("%s", input);
+        if (input[0] == 'm' && input[1] == 'o' && input[2] == 'v' && input[3] == 'e' && input[4] == '(' && input[5] == ')')
+        {
+            move();
+            continue;
+        }
+        if (input[0] == 't' && input[1] == 'u' && input[2] == 'r' && input[3] == 'n' && input[4] == 'L' && input[5] == 'e' && input[6] == 'f' && input[7] == 't' && input[8] == '(' && input[9] == ')')
+        {
+            turnLeft();
+            continue;
+        }
+        if (input[0] == 'p' && input[1] == 'u' && input[2] == 't' && input[3] == 'B' && input[4] == 'e' && input[5] == 'e' && input[6] == 'p' && input[7] == 'e' && input[8] == 'r' && input[9] == '(' && input[10] == ')')
+        {
+            putBeeper();
+            continue;
+        }
+        if (input[0] == 'p' && input[1] == 'i' && input[2] == 'c' && input[3] == 'k' && input[4] == 'B' && input[5] == 'e' && input[6] == 'e' && input[7] == 'p' && input[8] == 'e' && input[9] == 'r' && input[10] == '(' && input[11] == ')')
+        {
+            pickBeeper();
+            continue;
+        }
+        if (input[0] == 'e' && input[1] == 'x' && input[2] == 'i' && input[3] == 't' && input[4] == '(' && input[5] == ')')
+        {
+            printf("Exited manual modus.");
+            return;
+        }
+    }
 }
 // action shit
 
@@ -5785,5 +5820,19 @@ void worldMining3Ex()
 }
 
 // YOUR OWN CUSTOM WORLDS:
+void world3x1()
+{
+    hasUlimitedBeeper = true;
+    numberOfBeeper = 0;
+    setSpeed(500);             // speed in ms
+    worldDimension[0] = 1 - 1; // set to value in file
+    worldDimension[1] = 3 - 1; // set to value in file
+    karelPosition[0] = 1 - 1;  // set to value in file
+    karelPosition[1] = 1 - 1;  // set to value in file
+    karelRotation = 1;
+    beeper[0][0] = 1 - 1;
+    beeper[0][1] = 2 - 1;
+    beeper[0][2] = 20;
+}
 
 #endif
