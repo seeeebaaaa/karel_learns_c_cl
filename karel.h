@@ -5410,8 +5410,6 @@ void worldworldArea3()
     karelRotation = 1;
 }
 
-// YOUR OWN CUSTOM WORLDS:
-
 void worldMining3()
 {
     hasUlimitedBeeper = false;
@@ -5785,5 +5783,7 @@ void worldMining3Ex()
     beeper[0][1] = 15 - 1;
     beeper[0][2] = 1;
 }
+
+// YOUR OWN CUSTOM WORLDS:
 
 #endif

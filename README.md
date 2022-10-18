@@ -79,7 +79,7 @@ else if (!strcmp(worldName, "howYouWanToCallItFromYourFile"))
 onto the end of said chain of statements.
 Note: `howYouWanToCallItFromYourFile` is the name your world will have, and that you use to load it by using `loadWorld("yourWorldName)`.
 #### Pre-Declare it
-To pre-declare your world, add it to `// WORLDS` (somewhere around line 80) like the other worlds already have: `void worldYourWorldName();`
+To pre-declare your world, add it to `// WORLDS` (somewhere around line 90) like the other worlds already have: `void worldYourWorldName();`
 #### Using it
 Now you can use your world by typing `loadWorld("yourWorldName")` into the `void setup() {}` function.
 
