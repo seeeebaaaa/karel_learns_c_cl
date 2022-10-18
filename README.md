@@ -12,7 +12,7 @@ Download this repo by clicking on the green Code-Button in the right upper corne
 ### MacOS
 The best way of compiling it on MacOS is by using Clang. To use Clang, install the XCode-Commandline-Tools by typing `xcode-select --install` in your terminal. Click `Okay` in the pop up and wait till the installation has finished. 
 Confim that Clang is installed by typing `clang --version` in your terminal to list the installed version.
-If you dont have to newest clang version, you can reinstall clang/xcode-tools by typing:
+If you dont have the newest clang version, you can reinstall clang/xcode-tools by typing:
 ```shell
     sudo rm -rf /Library/Developer/CommandLineTools
     xcode-select --install
