@@ -12,6 +12,11 @@ Download this repo by clicking on the green Code-Button in the right upper corne
 ### MacOS
 The best way of compiling it on MacOS is by using Clang. To use Clang, install the XCode-Commandline-Tools by typing `xcode-select --install` in your terminal. Click `Okay` in the pop up and wait till the installation has finished. 
 Confim that Clang is installed by typing `clang --version` in your terminal to list the installed version.
+If you dont have to newest clang version, you can reinstall clang/xcode-tools by typing:
+```shell
+    sudo rm -rf /Library/Developer/CommandLineTools
+    xcode-select --install
+```
 ### Windows
 To install the gcc, go to [MinGW](https://sourceforge.net/projects/mingw/) and install the MinGW installer. Follow the instructions listed [here](https://dev.to/gamegods3/how-to-install-gcc-in-windows-10-the-easier-way-422j).
 Confirm your installation by typing `gcc --version` in your terminal.
