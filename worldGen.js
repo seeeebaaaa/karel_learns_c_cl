@@ -23,7 +23,7 @@ function syncReadFile(filename) {
 
 
 // CHANGE WORLD NAME HERE
-worldFromFile = syncReadFile('ClimbTwoPyramidsKarel');
+worldFromFile = syncReadFile('Mining3Ex');
 
 worldFromFile.pop(); //remove speed setting
 
