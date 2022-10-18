@@ -3,7 +3,7 @@
 void setup()
 {
     loadWorld("LivingRoom");
-    setSpeed(500); // Optional: Speed between actions/frames in milliseconds
+    setSpeed(10); // Optional: Speed between actions/frames in milliseconds
 }
 
 void turnRight()

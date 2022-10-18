@@ -714,7 +714,7 @@ bool frontIsClear()
     }
     case 2:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0] - 1, karelPosition[1]};
+        int theWallInQuestion[4] = {karelPosition[0] - 1, karelPosition[1], karelPosition[0], karelPosition[1]};
         if (isWallInWallDex(walls, theWallInQuestion))
         {
             return false;
@@ -723,7 +723,7 @@ bool frontIsClear()
     }
     case 3:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0], karelPosition[1] - 1};
+        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1] - 1, karelPosition[0], karelPosition[1]};
         if (isWallInWallDex(walls, theWallInQuestion))
         {
             return false;
@@ -745,7 +745,7 @@ bool leftIsClear()
     {
     case 0:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0], karelPosition[1] - 1};
+        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1] - 1, karelPosition[0], karelPosition[1]};
         if (isWallInWallDex(walls, theWallInQuestion))
         {
             return false;
@@ -772,7 +772,7 @@ bool leftIsClear()
     }
     case 3:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0] - 1, karelPosition[1] - 1};
+        int theWallInQuestion[4] = {karelPosition[0] - 1, karelPosition[1], karelPosition[0], karelPosition[1]};
         if (isWallInWallDex(walls, theWallInQuestion))
         {
             return false;
@@ -790,43 +790,30 @@ bool leftIsBlocked()
 }
 bool rightIsClear()
 {
+    // printf("Krot: %d", karelRotation);
     switch (karelRotation)
     {
     case 0:
     {
         int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0], karelPosition[1] + 1};
-        if (isWallInWallDex(walls, theWallInQuestion))
-        {
-            return false;
-        }
-        return true;
+        return !isWallInWallDex(walls, theWallInQuestion);
     }
     case 1:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0] - 1, karelPosition[1] + 1};
-        if (isWallInWallDex(walls, theWallInQuestion))
-        {
-            return false;
-        }
-        return true;
+        int theWallInQuestion[4] = {karelPosition[0] - 1, karelPosition[1], karelPosition[0], karelPosition[1]};
+        // printf("result %s", isWallInWallDex(walls, theWallInQuestion) ? "true" : "false");
+        // printf("wallInQustion: [%d,%d,%d,%d]", theWallInQuestion[0], theWallInQuestion[1], theWallInQuestion[2], theWallInQuestion[3]);
+        return !isWallInWallDex(walls, theWallInQuestion);
     }
     case 2:
     {
-        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0], karelPosition[1] - 1};
-        if (isWallInWallDex(walls, theWallInQuestion))
-        {
-            return false;
-        }
-        return true;
+        int theWallInQuestion[4] = {karelPosition[0], karelPosition[1] - 1, karelPosition[0], karelPosition[1]};
+        return !isWallInWallDex(walls, theWallInQuestion);
     }
     case 3:
     {
         int theWallInQuestion[4] = {karelPosition[0], karelPosition[1], karelPosition[0] + 1, karelPosition[1]};
-        if (isWallInWallDex(walls, theWallInQuestion))
-        {
-            return false;
-        }
-        return true;
+        return !isWallInWallDex(walls, theWallInQuestion);
     }
     default:
         break;
@@ -927,7 +914,7 @@ int main()
 // livingroom
 void worldLivingRoom()
 {
-    hasUlimitedBeeper = true;
+    hasUlimitedBeeper = false;
     numberOfBeeper = 0;
     setSpeed(500);
 
@@ -975,7 +962,7 @@ void worldFlagDistance1()
 {
     hasUlimitedBeeper = true;
     numberOfBeeper = 0;
-    setSpeed(100); // speed in ms
+    setSpeed(250); // speed in ms
 
     worldDimension[0] = 4 - 1;  // set to value in file
     worldDimension[1] = 12 - 1; // set to value in file
@@ -1749,7 +1736,7 @@ void worldDeathValley()
 
 void worldDiamondMining1()
 {
-    hasUlimitedBeeper = true;
+    hasUlimitedBeeper = false;
     numberOfBeeper = 0;
     setSpeed(500);
     worldDimension[0] = 20 - 1;
@@ -3013,7 +3000,7 @@ void worldDiamondMining1()
 
 void worldDiamondMining2()
 {
-    hasUlimitedBeeper = true;
+    hasUlimitedBeeper = false;
     numberOfBeeper = 0;
     setSpeed(500);
     worldDimension[0] = 9 - 1;

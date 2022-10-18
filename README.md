@@ -84,7 +84,7 @@ To pre-declare your world, add it to `// WORLDS` (somewhere around line 80) like
 Now you can use your world by typing `loadWorld("yourWorldName")` into the `void setup() {}` function.
 
 ## Todo:
-- ~~Farbe~~Done (17.10.22))
+- ~~Farbe~~ Done (17.10.22))
 - Action-History (to cmd & file?)
 - Check Setup/etc for Windows & Linux
 - ~~Add all worlds~~ Done (16.10.22)
