@@ -4,7 +4,7 @@ This is a command line version of "Karel the Robot learns C" by Markus Heckner (
 The goal of this projeect was to create a simpler, easier to install and cross-plattform version of Karel, only requiring a C compiler.
 Inspired by [Maximilian Schecklmann](https://github.com/Narrenschlag/KingKarel)
 
-<img src="https://media.giphy.com/media/T5y8Ke9iC97tOV7ZnF/giphy.gif" height="500" width="450"/>
+<img src="https://media.giphy.com/media/gGTz6aR8ZKzaQxm1ac/giphy.gif" height="386" width="319"/>
 
 ## Setup
 ### All Platforms
