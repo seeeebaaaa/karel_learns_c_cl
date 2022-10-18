@@ -91,4 +91,4 @@ Now you can use your world by typing `loadWorld("yourWorldName")` into the `void
 - Better Character Handling (for adding unicode characters)
 - Manual Control Mode
 - Add better explosion
-- Add maxHeight&maxWidth check
+- ~~Add maxHeight&maxWidth check~~ Done (17.10.22)
