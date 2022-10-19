@@ -959,7 +959,7 @@ int main()
 // livingroom
 void worldLivingRoom()
 {
-    hasUlimitedBeeper = false;
+    hasUlimitedBeeper = true;
     numberOfBeeper = 0;
     setSpeed(500);
 

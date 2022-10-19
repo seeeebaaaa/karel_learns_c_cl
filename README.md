@@ -37,6 +37,11 @@ The Walls are symbolized by `|, -` depending if they are vertical or horizontal.
 On the left and bottom part of the outer wall are markers (`>, ^`) that indicate the rows and colums Karel can stand in for a better visualization.
 Empty fields are marked with a dot `.`. 
 
+## Errors
+
+### Help the world doesn't load, its just a 1x1
+Then you misspelled the world name in `loadWorld("");`, or for custom worlds forgot to add it to the selection.
+
 ## Customization
 > NOTE: these featurs are exclusively for this Karel-version, and are may (very likely!!) not supported in other versions.
 > 
@@ -45,6 +50,7 @@ If you want to be fancy and have more fun with karel, there are a few settings y
 As shown in the `HelloWorld.c` example (that uses the LivingRoom world), you can use  `setSpeed(int speed)` to set the speed between frames in milliseconds. This value is set per default to 500ms. Also you can change the speed while the code is executed by using the `setSpeed()` function in components that are called in your `run()`.
 ### Manual Control Mode
 You can enter the manual control mode at any time in your program by using `manualMode();` in your code. The programm will pause and give you the chance to type basic movement functions (`move()`, `turnLeft()`, `putBeeper()`, `pickBeeper`) into the console to control Karel. Type `exit()` to exit the manual control mode and resume the program.
+Its quite handy if you want to pause your program at certain points to evaluate wahts happening.
 ### Karels look
 You can set own characters for Karel by going into `karel.h` and set under the comment `//  ✨ Beauty ✨` the characters that Karel (and the beepers) should use.
 ### Own Worlds
