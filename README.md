@@ -50,7 +50,7 @@ If you want to be fancy and have more fun with karel, there are a few settings y
 As shown in the `HelloWorld.c` example (that uses the LivingRoom world), you can use  `setSpeed(int speed)` to set the speed between frames in milliseconds. This value is set per default to 500ms. Also you can change the speed while the code is executed by using the `setSpeed()` function in components that are called in your `run()`.
 ### Manual Control Mode
 You can enter the manual control mode at any time in your program by using `manualMode();` in your code. The programm will pause and give you the chance to type basic movement functions (`move()`, `turnLeft()`, `putBeeper()`, `pickBeeper`) into the console to control Karel. Type `exit()` to exit the manual control mode and resume the program.
-Its quite handy if you want to pause your program at certain points to evaluate wahts happening.
+Its quite handy if you want to pause your program at certain points to evaluate whats happening.
 ### Karels look
 You can set own characters for Karel by going into `karel.h` and set under the comment `//  ✨ Beauty ✨` the characters that Karel (and the beepers) should use.
 ### Own Worlds
